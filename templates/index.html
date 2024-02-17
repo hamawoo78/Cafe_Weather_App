@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<h2>{{ year }}年 {{ month }}月の平均気温/湿度 </h2>
+
+ 
+<div class="d-flex">
+    <div class="list-group list-group-horizontal" style="width: 700px;">
+        {% for shop in shops %}
+        <a href="{% url 'detail' shop.id  yearmonth %}" class="list-group-item list-group-item-action" >
+        <div class="d-flex w-200 justify-content-between">
+            <h5 class="mb-1">{{ shop.location }}</h5>
+            <img style="width: 40px; height: inherit;" src="{% static shop.top %}" alt=""> 
+            <img style="width: 20px;  height: 20px;" src="{% static shop.second %}" alt=""> 
+            
+        </div>
+        <p class="mb-1">平均気温：{{ shop.ave_data.0 }}℃</p>
+        <p class="mb-1">平均湿度：{{ shop.ave_data.1  }}%</p>
+        <small>体感温度：{{ shop.ave_data.2 }}℃</small>
+
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<a href="{% url 'add' %}">Add New Location</a>
+
+
+{% endblock content %}
+

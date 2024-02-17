@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<h2>売り上げ記録</h2>
+ 
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">日付</th>
+        <th scope="col">店舗</th>
+        <th scope="col">売り上げ</th>
+        <th scope="col">気温</th>
+        <th scope="col">湿度</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in datas %}
+      <tr>
+        <td>{{data.date|date:"M. j, Y"}}</td>
+        <th scope="row">{{data.location}}</th>
+        <td>￥{{data.sales|floatformat:0}}</td>
+        <td>{{data.Temp|floatformat:0}}℃</td>
+        <td>{{data.humid|floatformat:0}}%</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+</table>
+<a href="{% url 'addsales' %}">Add Today's sales</a>
+
+
+{% endblock content %}
+

@@ -1,0 +1,76 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sales' %}">Sales</a>
+                </li>
+                
+                {% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'detail' or request.resolver_match.url_name == 'add' %}
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Menu
+                </a>
+                <ul class="dropdown-menu">
+                    {% for shop in shops %}
+                    <li><a class="dropdown-item" href="{% url 'detail' shop.id yearmonth %}">{{ shop.location }}</a></li>
+                    {% endfor %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'add' %}">Add New Location</a></li>
+                </ul>
+                {% endif %}
+            </ul>
+
+            {% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'detail' or request.resolver_match.url_name == 'add' %}
+            <form class="d-flex" role="search" method="GET">
+                {% csrf_token %}
+                <input class="form-control me-2" type="month" name="year_month" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <!-- 2023-09  -->
+            </form>
+            {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: rgb(31, 40, 63);">
+        <div class="container-fluid">
+            {% for shop in shops %}
+            <li class="nav-item">
+                <a style="color: white;" class="nav-link active" aria-current="page" >{{ shop.location }}</a>
+            </li>
+            <li class="nav-item">
+                <p style="font-size: 14px; color: white;">Today : {{ shop.forecast_data.2 }}℃ <img style="width: 20px;  height: 20px;" src="{% static shop.today_D %}" alt="">/ <img style="width: 20px;  height: 20px;" src="{% static shop.today_N %}" alt=""></p>
+                <p style="font-size: 14px; color: white;">Tomorrow : {{ shop.forecast_data.3 }}℃ <img style="width: 20px;  height: 20px;" src="{% static shop.tomorrow_D %}" alt="">/ <img style="width: 20px;  height: 20px;" src="{% static shop.tomorrow_N %}" alt=""></p>
+            </li>
+            {% endfor %}
+        </div>
+    </nav>
+
+        <!-- end Navbar -->
+
+        <!-- consider Breadcrumb -->
+        {% block content %}
+
+
+        {% endblock content %}
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    </body>
+</html>

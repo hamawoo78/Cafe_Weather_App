@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<h2>{{ shop.location }} : {{ year }}年 {{ month }}月の天気資料</h2>
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col"> </th>
+        <th scope="col">天気</th>
+        <th scope="col">気温</th>
+        <th scope="col">体感温度</th>
+        <th scope="col">湿度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">上旬</th>
+        <td><img style="width: 40px; height: inherit;" src="{% static top_b %}" alt=""></td>
+        <td>{{ ave_data.0.0 }}℃</td>
+        <td>{{ ave_data.0.2 }}℃</td>
+        <td>{{ ave_data.0.1 }}%</td>
+      </tr>
+      <tr>
+        <th scope="row">中旬</th>
+        <td><img style="width: 40px; height: inherit;" src="{% static top_m %}" alt=""></td>
+        <td>{{ ave_data.1.0 }}℃</td>
+        <td>{{ ave_data.1.2 }}℃</td>
+        <td>{{ ave_data.1.1 }}%</td>
+      </tr>
+      <tr>
+        <th scope="row">下旬</th>
+        <td><img style="width: 40px; height: inherit;" src="{% static top_l %}" alt=""></td>
+        <td>{{ ave_data.2.0 }}℃</td>
+        <td>{{ ave_data.2.2 }}℃</td>
+        <td>{{ ave_data.2.1 }}%</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+{% endblock content %}
