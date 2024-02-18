@@ -1,2 +1,0 @@
-DATABASES = f'https://api.weather.com/v3/wx/hod/r1/direct?geocode={geocode}&startDateTime={year}-{month}-01T00:00:00Z&endDateTime={year}-{month}-{day}T00:00:00Z&format=json&units=m&apiKey=7698370dea91420198370dea91720199'
-DATABASES2 = f'https://api.weather.com/v3/wx/forecast/hourly/2day?geocode={geocode}&format=json&units=m&language=en-EN&apiKey=7698370dea91420198370dea91720199'
