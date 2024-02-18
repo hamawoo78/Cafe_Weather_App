@@ -18,6 +18,8 @@ import json
 import math
 from django.http import HttpResponseServerError
 
+from cafeweatherapp.settings_secret import *
+
 # Create your views here.
 
 class ShopList(ListView):
@@ -83,7 +85,7 @@ class ShopList(ListView):
         day = ForecastData()
         day = day.get_day(year, month)
 
-        api_url = f'https://api.weather.com/v3/wx/hod/r1/direct?geocode={geocode}&startDateTime={year}-{month}-01T00:00:00Z&endDateTime={year}-{month}-{day}T00:00:00Z&format=json&units=m&apiKey=7698370dea91420198370dea91720199'
+        api_url = DATABASES 
         # print(api_url)
 
         try:
@@ -207,7 +209,7 @@ class MoreDetail(DetailView):
         day = ForecastData()
         day = day.get_day(year, month)
 
-        api_url = f'https://api.weather.com/v3/wx/hod/r1/direct?geocode={geocode}&startDateTime={year}-{month}-01T00:00:00Z&endDateTime={year}-{month}-{day}T23:20:00Z&format=json&units=m&apiKey=7698370dea91420198370dea91720199'
+        api_url = DATABASES
         
         try:
             response = requests.get(api_url)
@@ -394,7 +396,7 @@ class ForecastData:
 
     def get_forecast_data(self, geocode):
         data_list = {}
-        api_url = f'https://api.weather.com/v3/wx/forecast/hourly/2day?geocode={geocode}&format=json&units=m&language=en-EN&apiKey=7698370dea91420198370dea91720199'
+        api_url = DATABASES2
         
         try:
             response = requests.get(api_url)
